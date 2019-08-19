@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-package calendar
+package calendar;
 
-import timestamp "github.com/golang/protobuf/ptypes/timestamp";
+import  "google/protobuf/timestamp.proto";
 
 message Event {
     uint64 UUID = 1;
-    string title = 2;
-    string description = 3;
-    timestamp.Timestamp CreatedAt = 4;
-    uint64 userId = 5
+    string Title = 2;
+    string Description = 3;
+    google.protobuf.Timestamp CreatedAt = 4;
+    uint64 UserId = 5;
 }

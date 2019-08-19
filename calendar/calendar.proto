@@ -8,6 +8,6 @@ message Event {
     uint64 UUID = 1;
     string title = 2;
     string description = 3;
-    *timestamp.Timestamp CreatedAt = 4;
+    timestamp.Timestamp CreatedAt = 4;
     uint64 userId = 5
 }

@@ -6,8 +6,8 @@ import (
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
-	"github.com/KateGritsay/Calendar/pkg/calendar"
-	"github.com/KateGritsay/Calendar/pkg/"
+	"github.com/KateGritsay/Calendar/internal/pkg/calendar"
+	"github.com/KateGritsay/Calendar/pkg/calendarpb"
 	"time"
 )
 

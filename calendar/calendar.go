@@ -2,7 +2,7 @@
 //go:generate protoc --go_out=. calendarpb.proto
 
 
-package internal
+package calendar
 
 import (
 	"errors"

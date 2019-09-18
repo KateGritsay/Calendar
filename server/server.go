@@ -6,9 +6,9 @@ import (
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
-	"github.com/KateGritsay/Calendar/internal/pkg/calendar"
+	"github.com/KateGritsay/Calendar/internal/pkg/calendar
 	"github.com/KateGritsay/Calendar/pkg/calendarpb"
-	"time"
+
 )
 
 type calendarServer struct{}
@@ -42,4 +42,3 @@ func (s *calendarServer) CreateEvent (ctx context.Context, req calendarpb.Create
 
 }
 
-func ToEvent (event *calendarpb.Event) *calendar.Event

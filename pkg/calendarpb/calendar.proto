@@ -30,7 +30,7 @@ message CreateEventReq {
 
 message CreateEventRes {
     int64 UUID = 1;
-    bool created = 2;
+    string error = 2;
 }
 
 message GetEventReq {
@@ -39,7 +39,7 @@ message GetEventReq {
 
 message GetEventRes {
     Event event = 1;
-    bool getted = 2;
+    string error = 2;
 }
 
 message UpdateEventReq {
@@ -48,5 +48,5 @@ message UpdateEventReq {
 
 message UpdateEventRes {
     Event event = 1;
-    bool updated = 2;
+    string error = 2;
 }

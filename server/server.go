@@ -6,13 +6,12 @@ import (
 	"log"
 	"net"
 	"github.com/KateGritsay/Calendar/pkg/calendar"
-
+	"github.com/KateGritsay/Calendar/internal/calendar"
+	"time"
 )
 
 type calendarServer struct{}
 
-func (s *calendarServer) CreateEvent(ctx context.Context, req *calendar.CreateEventReq) (*CreateEventRes, error) {
-}
 
 	func main() {
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
@@ -25,4 +24,16 @@ func (s *calendarServer) CreateEvent(ctx context.Context, req *calendar.CreateEv
 
 calendarpb.RegisterCalendarServer(grpcServer, &calendarServer{})
 grpcServer.Serve(lis)
+}
+
+func mapEventpbToEvent(event *calendarpb.Event) *calendar.Event {
+	return &calendar.Event{
+		UUID:        event.UUID,
+		UserId:      event.UserId,
+		Description: event.Description,
+		End:         time.Unix(event.End.Seconds, int64(event.End.Nanos)),
+		Start:       time.Unix(event.Start.Seconds, int64(event.Start.Nanos)),
+		NoticeTime:  event.NoticeTime,
+		Title:       event.Title,
+	}
 }

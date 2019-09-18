@@ -1,13 +1,14 @@
+
+//go:generate protoc --go_out=. calendar.proto
+
+
 package calendar
 
 import (
 	"errors"
 	"fmt"
-	"./"
+	""
 )
-
-//go:generate protoc --go_out=. calendarpb.proto
-
 
 type Calendar struct {
 	events map[uint64]Event

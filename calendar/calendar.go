@@ -7,8 +7,9 @@ package calendar
 import (
 	"errors"
 	"fmt"
-	calendar "github.com/KateGritsay/Calendar/pkg/calendar"
+	calendar "github.com/KateGritsay/Calendar/pkg/calendarpb"
 )
+
 
 type Calendar struct {
 	events map[uint64]calendar.Event

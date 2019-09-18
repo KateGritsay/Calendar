@@ -15,7 +15,7 @@ type EventSQL struct {
 	UserId      uint64 `db:"user_id"`
 }
 
-type DataBase struct{
+type MyCalendar struct{
 	db *sqlx.DB
 	err error
 }
@@ -37,18 +37,18 @@ func connector() (*sqlx.DB, error) {
 	return db, nil
 }
 
-func (d *DataBase) CreateEvent(ctx context.Context, e EventSQL) (int64, error) {
+func (m *MyCalendar) CreateEvent(ctx context.Context, e EventSQL) (int64, error) {
 	var uuid int64
 
 	query := `INSERT INTO event(user_id, title, createdat, description)
 			VALUES ($1, $2, $3, $4) RETURNING uuid`
 
-	err := d.db.QueryRowContext(ctx, query, e.UserId, e.Title,e.CreatedAt, e.Description).Scan(&uuid)
+	err := m.db.QueryRowContext(ctx, query, e.UserId, e.Title,e.CreatedAt, e.Description).Scan(&uuid)
 
 	return uuid, err
 }
 
-func (d *DataBase) UpdateEvent(ctx context.Context, event EventSQL) (EventSQL, error) {
+func (m *MyCalendar) UpdateEvent(ctx context.Context, event EventSQL) (EventSQL, error) {
 	var updated EventSQL
 
 	query := `UPDATE event 
@@ -57,7 +57,7 @@ func (d *DataBase) UpdateEvent(ctx context.Context, event EventSQL) (EventSQL, e
 		WHERE uuid = :uuid
 		RETURNING *;`
 
-	rows, err := d.db.NamedQueryContext(ctx, query, map[string]interface{}{
+	rows, err := m.db.NamedQueryContext(ctx, query, map[string]interface{}{
 		"uuid":        event.UUID,
 		"userId":      event.UserId,
 		"title":       event.Title,
@@ -79,10 +79,10 @@ func (d *DataBase) UpdateEvent(ctx context.Context, event EventSQL) (EventSQL, e
 	return updated, err
 }
 
-func (d *DataBase) GetEvent(ctx context.Context, uuid int64) (EventSQL, error) {
+func (m *MyCalendar) GetEvent(ctx context.Context, uuid int64) (EventSQL, error) {
 	var event EventSQL
 	query := `SELECT * FROM event WHERE uuid = :uuid;`
-	rows, err := d.db.NamedQueryContext(ctx, query, map[string]interface{}{"uuid": uuid})
+	rows, err := m.db.NamedQueryContext(ctx, query, map[string]interface{}{"uuid": uuid})
 
 	defer rows.Close()
 
